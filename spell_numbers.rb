@@ -5,7 +5,7 @@ class Spell_Out
 			return
 		end
 		@nbrString 	= ""
-		@ciphers    = ["zero",:one,:two,:three,:four,:five,:six,:seven,:eight,:nine]
+		@ciphers    = [:zero,:one,:two,:three,:four,:five,:six,:seven,:eight,:nine]
 		@decimals   = [:and,:ten,:twenty,:thirty,:fourty,:fifty,:sixty,:seventy,:eighty,:ninety]
 		@exceptions = {"10"=> :ten, "11"=>:eleven ,"12"=>:twelve,"13"=>:thirteen,
 						"14"=>:fourteen,"15"=>:fifteen,"16"=>:sixteen,
@@ -17,7 +17,7 @@ class Spell_Out
 
 		while @beforePoint.length > 0
 			digit = @beforePoint.shift.to_i
-			if @beforePoint.length+1 == 2 && digit == 1 
+			if @beforePoint.length+1 == 2 && digit == 1
 				key = "#{digit.to_s}#{@beforePoint.last}"
 				@nbrString += "#{@exceptions[key]} "
 				break
@@ -38,9 +38,10 @@ class Spell_Out
 
 	def sayNumber(digit, pos, befOrAft=:before)
 		str = ""
-		val = "#{@ciphers[digit]} "
-		if befOrAft==:before && val == "zero"
-#		if befOrAft==:before && ("zero".include?(val) || val.include?("zero"))
+		cipher = @ciphers[digit]
+		val = cipher.to_s + " "
+
+		if befOrAft==:before && cipher == :zero
 			return "and "
 		end
 
